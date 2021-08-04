@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Notice Board
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<div *ngIf="loaded">
+
+  <ion-list-header>
+   <h2 class="haspadding">Notices <small>(Scoll for more, tap for details)</small></h2>
+</ion-list-header>
+<ion-slides mode="ios"   pager="true" [options]="slideOpts" class="anouncements">
+  <ion-slide  *ngFor="let announcent of notices.annoucements">
+    <h2>{{ announcent.title }}</h2>
+    <!-- <p>
+      <small [innerHtml] ="announcent.description | slice:0:100"></small>
+     </p> -->
+  </ion-slide>
+  </ion-slides>
+
+  <ion-list>
+    <ion-list-header>
+      <h2>College Discussions</h2>
+    </ion-list-header>
+    <ion-item *ngFor="let dis of notices.college_discussions">
+      <ion-avatar slot="start">
+        <ion-icon class="success" name="chatbubble-outline"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ dis.title }}</h3>
+        <p>{{ dis.description}}</p>
+        <p><ion-icon name="timer-outline"></ion-icon> {{ dis.timestamp }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <h2>Course Discussions</h2>
+    </ion-list-header>
+    <ion-item *ngFor="let dis of notices.course_discussions">
+      <ion-avatar slot="start">
+        <ion-icon class="warning" name="chatbubble-ellipses-outline"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ dis.title }}</h3>
+        <p>{{ dis.description}}</p>
+        <p><ion-icon name="time-outline"></ion-icon> {{ dis.timestamp }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <h2>Upcoming Exercises</h2>
+    </ion-list-header>
+    <ion-item *ngFor="let ex of notices.upcoming_exercises">
+      <ion-avatar slot="start">
+        <ion-icon class="info" name="clipboard-outline"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ ex.title }}</h3>
+        <p>{{ ex.description}}</p>
+        <p><ion-icon name="time-outline"></ion-icon> {{ ex.startTime }} - {{ ex.closeTime }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <h2>Upcoming Tests</h2>
+    </ion-list-header>
+    <ion-item *ngFor="let ex of notices.upcoming_tests">
+      <ion-avatar slot="start">
+        <ion-icon class="dull" name="book-outline"></ion-icon>
+      </ion-avatar>
+      <ion-label>
+        <h3>{{ ex.name }}</h3>
+        <p class="success">{{ ex.allocationCriteria}} &nbsp;&nbsp; | &nbsp;&nbsp; {{ ex.totoalQuestions}} Questions  </p>
+       </ion-label>
+    </ion-item>
+  </ion-list>
+
+</div>
+
+</ion-content>

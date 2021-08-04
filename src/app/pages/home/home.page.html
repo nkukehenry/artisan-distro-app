@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="toggleMenu()">
+        <ion-icon name="menu"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      SOMESA
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+  <app-categories></app-categories>
+
+  <div class="greeting">
+    <ion-row>
+      <ion-col size="12">
+        Hello Henry Nkuke
+        <p>
+          <ion-icon name="information-circle-outline"></ion-icon>
+          <small>If you every face any challenges with using the, please 
+            contact us ASAP, it's the reason we are here. We want the best for you!
+          </small>
+        </p>
+      </ion-col>
+      <ion-col>
+
+      </ion-col>
+    </ion-row>
+  </div>
+  
+  <div class="categories">
+
+    <div class="category" *ngFor="let category of categories" [routerLink]="['/'+category.link]" 
+    routerLinkActive="router-link-active"  >
+        <div class="icon">
+            <img [src]="category.icon">
+        </div>
+        <div class="text">
+            {{ category.name }}
+        </div>
+    </div>
+     
+</div>
+</ion-content>

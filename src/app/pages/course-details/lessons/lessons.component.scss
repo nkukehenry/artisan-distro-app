@@ -1,0 +1,19 @@
+.ion-title h3{
+    color: black;
+}
+.resources{
+
+    flex-wrap: wrap;
+
+    ion-col{
+        font-size: 10pt;
+        padding-right: 5pt;
+        padding-left: 1px;
+        display: flex;
+        align-items: center;
+        color: orange;
+    }
+    ion-col ion-icon{
+        padding: 6px;
+    }
+}

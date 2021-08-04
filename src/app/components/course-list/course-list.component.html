@@ -1,0 +1,36 @@
+
+<div class="courses" *ngIf="courses.length<1">
+  <ion-card class="skell" *ngFor="let item of [1,2,3,4,5,6,7,8]" >
+    <ion-card-content>
+    <ion-skeleton-text class="img-skeleton" animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated></ion-skeleton-text>
+      <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+    </ion-card-content> 
+</ion-card>
+</div>
+
+<div class="courses" *ngIf="courses.length>0">
+  <ion-card *ngFor="let item of courses" (click)="selectCourse(item)">
+    <ion-card-header [style.backgroundImage]="'url('+(item?.logo_url || 'assets/images/placeholder.png')+')'">
+    </ion-card-header>
+    <ion-card-content class="ion-text-left ion-no-padding">
+      <ion-row>
+      <ion-col size="12">
+      <h4 [innerHtml]="item.name"></h4>
+      <h6 class="approval">
+        <ion-icon class="success" name="pricetags-outline"></ion-icon>
+        <small>{{ item.enrollment_criteria }}</small>
+      </h6>
+      <h6 [innerHtml]="item.description | slice:0:75"></h6>
+      
+      </ion-col>
+    </ion-row>
+    <!-- <ion-button size="full" color="primary">
+      <span><ion-icon class="with-padding" name="play"></ion-icon> Start</span>
+    </ion-button> -->
+    </ion-card-content>
+  </ion-card>
+    <small class="end">---- THE END ----</small>
+</div>

@@ -1,0 +1,12 @@
+<ion-content>
+  <ion-refresher style="padding-top: 30px;" slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="chevron-down-circle-outline"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles">
+    </ion-refresher-content>
+  </ion-refresher>
+  <app-categories></app-categories>
+  <h3 class="course-heading">Featured Courses</h3>
+  <app-course-list *ngIf="featuredCourses.length>0" [courses] = "featuredCourses" (refresh)="listenForRefresh($event)"></app-course-list>
+</ion-content>

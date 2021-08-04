@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Knowledge Hub
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+<div  *ngFor="let hub of knowHubs;"  >
+<div *ngIf="hub.entities.length>0">
+  <ion-list-header ><h2>{{ hub.category}}</h2></ion-list-header>
+<div  class="hubs">
+  <ion-card *ngFor="let entity of hub.entities" (click)="showEntity(entity)">
+     <ion-img [src]="(entity.image || 'assets/images/knohub.png')"></ion-img>
+    <!-- <ion-img src="assets/images/course.jpg"></ion-img> -->
+    <ion-card-header>
+      <ion-card-title>{{ entity.title}}</ion-card-title>
+      <ion-card-subtitle>{{ entity.description | slice:0:60 }}</ion-card-subtitle>
+     </ion-card-header>
+    <ion-card-content>
+      {{ entity.briefDescription | slice:0:90 }}
+    </ion-card-content>
+  </ion-card>
+</div>
+</div>
+</div>
+
+</ion-content>

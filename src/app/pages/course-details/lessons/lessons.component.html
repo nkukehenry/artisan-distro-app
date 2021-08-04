@@ -1,0 +1,21 @@
+<ion-toolbar>
+  <ion-title>
+    <h3>Lessons</h3>
+  </ion-title>
+</ion-toolbar>
+<ion-list>
+  <ion-list-header></ion-list-header>
+  <ion-item *ngFor="let lesson of lessons">
+    <ion-label>
+      <h2>{{ lesson.title }}</h2>
+      <ion-row class="resources">
+        <ion-col size="4" *ngIf="lesson.resources.audio.length>0"><ion-icon name="musical-note-outline"></ion-icon> Videos: {{ lesson.resources.audio.length }}</ion-col>
+        <ion-col size="4" *ngIf="lesson.resources.documents.length>0"><ion-icon name="document-attach-outline"></ion-icon> Documents: {{ lesson.resources.documents.length }}</ion-col>
+        <ion-col size="4" *ngIf="lesson.resources.slides.length>0"><ion-icon name="copy-outline"></ion-icon>   Slides: {{ lesson.resources.slides.length }}</ion-col>
+        <ion-col size="4" *ngIf="lesson.resources.videos.length>0"><ion-icon name="film-outline"></ion-icon>   Videos: {{ lesson.resources.videos.length }}</ion-col>
+        <ion-col size="4" *ngIf="lesson.resources.images.length>0"><ion-icon name="images-outline"></ion-icon> Images: {{ lesson.resources.images.length }}</ion-col>
+      </ion-row>
+    </ion-label>
+    <ion-icon class="success" slot="end" name="caret-forward-circle-outline"></ion-icon>
+  </ion-item>
+</ion-list>

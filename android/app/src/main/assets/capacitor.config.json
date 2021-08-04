@@ -1,0 +1,6 @@
+{
+	"appId": "com.somesa.elearning",
+	"appName": "Somesa",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}

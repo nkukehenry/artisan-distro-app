@@ -1,0 +1,35 @@
+ion-content{
+
+    padding: 10px;
+    div{
+     padding-bottom: 40px!important;
+    }
+
+    ion-avatar ion-icon{
+      font-size: 18pt;
+    }
+
+    //noticeboard
+
+      .anouncements{
+        padding-right: 50px;
+
+        ion-slide{
+          background-color: #ffc!important;
+          min-width: 60%;
+          min-height: 200px;
+          margin: 10px!important;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          border-bottom-left-radius: 20px;
+          border-top-right-radius: 20px;
+        }
+
+        
+
+      }
+
+  
+      
+}
