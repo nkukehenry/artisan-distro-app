@@ -1,0 +1,10 @@
+<ion-item>
+  <ion-img slot="start" class="success" [src]="'http://artisandistro.io/images/products/'+product.image"></ion-img>
+  <ion-label>
+    <h4>{{ product.name }}</h4>
+     <p class="units">{{ product.quantity }} <small>{{ product.unit }}</small> in Stock, UGX {{ product.price | number }}</p>
+  </ion-label>
+  <small slot="end">
+    <ion-icon  name="chevron-forward-circle-outline"></ion-icon>
+  </small>
+</ion-item>

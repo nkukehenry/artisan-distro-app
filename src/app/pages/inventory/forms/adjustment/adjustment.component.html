@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal(false)">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="cube-outline"></ion-icon>
+      Add Stock
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+  <form #dataForm="ngForm">
+    <input type="hidden" *ngIf="data.id" [(ngModel)]="data.id" name="id" />
+  <!-- <p class="error" *ngIf="(date.touched || date.dirty) && !date.valid">A valid date is required</p>
+  <ion-item>
+    <ion-label for="date" position="floating">Date</ion-label>
+    <ion-input  type="date" #date="ngModel" name="date" [(ngModel)]="data.date" id="date" placeholder="" required></ion-input>
+  </ion-item> -->
+  <ion-row>
+  <ion-col size="6">
+  <ion-item>
+    <ion-label position="floating">Product</ion-label>
+    <ion-select  name="code" [(ngModel)]="newrow.code"  value="" interface="popover">
+      <ion-select-option value="" selected>Choose</ion-select-option>
+      <ion-select-option *ngFor="let item of products" value="{{ item.code }}">{{ item.name }}</ion-select-option>
+     </ion-select>
+  </ion-item>
+  </ion-col> 
+  <ion-col size="4">
+    <ion-item>
+      <ion-label for="date" position="floating">Qnty</ion-label>
+      <ion-input min="1"  type="number" #qnty="ngModel" name="quantity" [(ngModel)]="newrow.quantity" id="qnty" placeholder="e.g 1" ></ion-input>
+    </ion-item>
+  </ion-col >
+  <ion-col class="add-button" size="2">
+    <ion-icon name="add-circle-outline" (click)="addRow()"></ion-icon>
+  </ion-col>
+</ion-row>
+<br>
+<div class="rows" *ngIf="data.details">
+  <h5>{{ data?.details.length || 0 }} Item<span *ngIf="data?.details.length!==1">s</span> added </h5>
+<ion-item *ngFor="let row of data.details; let i=index">
+  <ion-label>
+      <h5>{{ row.name }}</h5>
+      <p class="info">Qnty: {{ row.quantity }} {{ row.unit }}</p>
+      <p class="info">Price: {{ row.price | number  }}</p>
+      <p class="info">Amt: {{ row.subtotal | number  }}</p>
+  </ion-label>
+  <span slot="end" class="danger" >
+    <ion-icon name="close-circle-outline" (click)="removeRow(i)"></ion-icon>
+  </span>
+</ion-item>
+</div>
+
+</form>
+<br>
+</ion-card-content>
+</ion-card>
+
+</ion-content>
+<ion-footer>
+  <ion-row *ngIf="data.GrandTotal">
+    <ion-col size="2"></ion-col>
+    <ion-col size="8">
+      <h4 class="text-bold">UGX {{ data.GrandTotal | number }}</h4>
+    </ion-col>
+  </ion-row>
+<ion-toolbar color="primary">
+  <ion-button (click)="submit()" [disabled]="!data.details" mode="ios" expand="full" fill="clear">
+    <ion-icon name="pricetag-outline"></ion-icon> &nbsp; <span *ngIf="!data.id">SUBMIT ORDER</span> </ion-button>
+</ion-toolbar>
+</ion-footer>

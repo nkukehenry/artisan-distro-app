@@ -1,7 +1,0 @@
-<h5>Course categories</h5>
-<ion-slides pager="false" [options]="slideOpts" class="categories">
-  <ion-slide class="category" *ngFor=" let cat of categories" style="background-color:{{getColor()}} ;">
-      <ion-icon name="{{cat.icon}}"></ion-icon>
-      <span>{{ cat.name }}</span>
-  </ion-slide>
-</ion-slides>

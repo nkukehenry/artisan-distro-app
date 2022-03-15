@@ -1,0 +1,29 @@
+<ion-header>
+   <ion-toolbar>
+     <ion-title>Create Topic</ion-title>
+     <ion-buttons slot="end">
+       <ion-button (click)="closeModal()">Close</ion-button>
+     </ion-buttons>
+   </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <div class="cont-box">
+  <form #topicForm="ngForm">
+  <p class="error" *ngIf="(title.touched || title.dirty) && !title.valid">Title is required</p>
+  <br>
+  <ion-item>
+    <ion-label position="floating">Title</ion-label>
+    <ion-input name="title" #title="ngModel" [(ngModel)]="data.title" type="text" required></ion-input>
+  </ion-item>
+  <ion-textarea name="description" #description="ngModel" [(ngModel)]="data.description" rows="10" placeholder="Your topic here" required>
+
+  </ion-textarea>
+  <p class="error" *ngIf="(description.touched || description.dirty) && !description.valid">Description is required</p>
+  <br>
+
+  <ion-button expand="block" color="primary" [disabled]="!topicForm.valid" (click)="submitTopic()">
+    Submit Topic
+  </ion-button>
+</form>
+</div>
+</ion-content>

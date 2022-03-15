@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-login',
@@ -9,16 +11,23 @@ import { MenuController, NavController, Platform, ToastController } from '@ionic
 })
 export class LoginPage implements OnInit {
 
-  categories = [
-    { name: 'Courses', icon: 'assets/icon/course.png', link: 'courses' },
-    { name: 'Knowledge Hub', icon: 'assets/icon/khub.png', link: 'knowledgehub' },
-    { name: 'Notice Board', icon: 'assets/icon/notice.png', link: 'noticeboard' },
-    { name: 'E-Portifolio', icon: 'assets/icon/portfolio.png', link: 'courses' },
-    { name: 'Forums', icon: 'assets/icon/forum.png', link: 'courses' },
-    { name: 'My Profile', icon: 'assets/icon/profile.png', link: 'courses' },
-  ];
-
+  data: any = {};
   exitcounter = 0;
+  isNewForm = true;
+  passType = 'password';
+  appName = 'Artisan';
+  user = {
+    name: 'Henry Mayanja',
+    id: 100,
+    address: 'Kampala, Uganda',
+    account: 764764,
+    vehicle: 'UAS 4456H'
+  };
+
+  slideOptions = {
+    initialSlide: 0,
+    autoplay: true.valueOf,
+  };
 
   constructor(
     private menu: MenuController,
@@ -26,9 +35,13 @@ export class LoginPage implements OnInit {
     private platform: Platform,
     private toastCtrl: ToastController,
     private navCtrl: NavController,
+    private authService: AuthenticationService,
+    private uiService: UiService
+
   ) { }
 
   ngOnInit() {
+    this.menu.enable(false);
     this.handleBack();
   }
 
@@ -40,7 +53,7 @@ export class LoginPage implements OnInit {
     this.platform.backButton.subscribeWithPriority(10, () => {
       console.log('Handler was called! on ' + this.router.url);
 
-      if (this.router.url === '/courses/login' || this.router.url === '/login') {
+      if (this.router.url === '/home' || this.router.url === '/login') {
         if (this.exitcounter < 1
         ) {
           this.exitcounter++;
@@ -65,6 +78,30 @@ export class LoginPage implements OnInit {
     setTimeout(() => {
       this.exitcounter = 0;
     }, 5000);
+  }
+
+  doLogin() {
+    // this.authService.getIn(this.user);
+
+    this.uiService.showLoader();
+    //this.data
+    this.authService.remoteLogin().subscribe(
+      (response) => {
+        this.uiService.hideLoader();
+        if (response?.access_token) {
+          this.data.password = '';
+          this.authService.authToken = response.access_token;
+          this.authService.getIn(this.user);
+        }
+      }, error => {
+        this.uiService.hideLoader();
+        this.uiService.showToast('Could not reach the server');
+      });
+
+  }
+
+  toggleType() {
+    this.passType = (this.passType === 'password') ? 'text' : 'password';
   }
 
 }

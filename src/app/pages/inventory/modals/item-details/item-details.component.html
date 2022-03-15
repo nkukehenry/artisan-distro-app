@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Item Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="chevron-back-outline"></ion-icon> Back
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-card>
+  <ion-card-content>
+    <ion-list>
+      <ion-avatar >
+        <ion-img [src]="'assets/images/prods/'+item.image"></ion-img>
+      </ion-avatar>
+      <ion-item>
+        <ion-label position="floating">Item Name: </ion-label>
+        <ion-input readonly [(ngModel)]="item.name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Price: </ion-label>
+        <ion-input readonly [(ngModel)]="item.price"></ion-input>
+        <small slot="end">UGX</small>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Current Stock: </ion-label>
+        <ion-input readonly [(ngModel)]="item.units"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-list>
+      <h5>Stocking Histroy</h5>
+      <ion-item>
+        <ion-icon class="dull" slot="start" name="pricetag-outline"></ion-icon>
+        <ion-label>
+          <h4>20th May, 2021</h4>
+           <p>300 Units UGX 89,00,000</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon class="dull" slot="start" name="pricetag-outline"></ion-icon>
+        <ion-label>
+          <h4>30th June, 2021</h4>
+           <p>60 Units UGX 600,000</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon class="dull" slot="start" name="pricetag-outline"></ion-icon>
+        <ion-label>
+          <h4>13th July, 2021</h4>
+           <p>45 Units UGX 78,00,000</p>
+        </ion-label>
+      </ion-item>
+      <br>
+    </ion-list>
+</ion-card-content>
+</ion-card>
+</ion-content>

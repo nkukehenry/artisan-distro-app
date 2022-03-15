@@ -1,34 +1,42 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <app-menu-button></app-menu-button>
     </ion-buttons>
     <ion-title>
       Notice Board
     </ion-title>
+    
+    <ion-buttons slot="end">
+      <ion-back-button mode='ios'></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
 
 <div *ngIf="loaded">
 
-  <ion-list-header>
-   <h2 class="haspadding">Notices <small>(Scoll for more, tap for details)</small></h2>
+<ion-list-header *ngIf="notices.annoucements.length>0">
+   <h3 class="haspadding">Announcements <small>(Scoll for more, tap for details)</small></h3>
 </ion-list-header>
+<p class="no-data" *ngIf="isEmpty()">
+  No Noticeboard data  available
+</p>
 <ion-slides mode="ios"   pager="true" [options]="slideOpts" class="anouncements">
-  <ion-slide  *ngFor="let announcent of notices.annoucements">
-    <h2>{{ announcent.title }}</h2>
+  <ion-slide (click)="showNotice(announcent)"  *ngFor="let announcent of notices.annoucements">
+    <h3 [innerHtml]="announcent.title || 'Tap for details'">
+    </h3>
     <!-- <p>
       <small [innerHtml] ="announcent.description | slice:0:100"></small>
      </p> -->
   </ion-slide>
   </ion-slides>
 
-  <ion-list>
+  <ion-list *ngIf="notices.college_discussions.length>0">
     <ion-list-header>
-      <h2>College Discussions</h2>
+      <h3>College Discussions</h3>
     </ion-list-header>
-    <ion-item *ngFor="let dis of notices.college_discussions">
+    <ion-item (click)="showNotice(dis)" *ngFor="let dis of notices.college_discussions">
       <ion-avatar slot="start">
         <ion-icon class="success" name="chatbubble-outline"></ion-icon>
       </ion-avatar>
@@ -40,11 +48,11 @@
     </ion-item>
   </ion-list>
 
-  <ion-list>
+  <ion-list *ngIf="notices.course_discussions.length>0">
     <ion-list-header>
-      <h2>Course Discussions</h2>
+      <h3>Course Discussions</h3>
     </ion-list-header>
-    <ion-item *ngFor="let dis of notices.course_discussions">
+    <ion-item (click)="showNotice(dis)" *ngFor="let dis of notices.course_discussions">
       <ion-avatar slot="start">
         <ion-icon class="warning" name="chatbubble-ellipses-outline"></ion-icon>
       </ion-avatar>
@@ -56,11 +64,11 @@
     </ion-item>
   </ion-list>
 
-  <ion-list>
+  <ion-list  *ngIf="notices.upcoming_exercises.length>0">
     <ion-list-header>
       <h2>Upcoming Exercises</h2>
     </ion-list-header>
-    <ion-item *ngFor="let ex of notices.upcoming_exercises">
+    <ion-item (click)="showNotice(ex)" *ngFor="let ex of notices.upcoming_exercises">
       <ion-avatar slot="start">
         <ion-icon class="info" name="clipboard-outline"></ion-icon>
       </ion-avatar>
@@ -72,11 +80,11 @@
     </ion-item>
   </ion-list>
 
-  <ion-list>
+  <ion-list *ngIf="notices.upcoming_tests.length>0">
     <ion-list-header>
-      <h2>Upcoming Tests</h2>
+      <h3>Upcoming Tests</h3>
     </ion-list-header>
-    <ion-item *ngFor="let ex of notices.upcoming_tests">
+    <ion-item  (click)="showNotice(ex)" *ngFor="let ex of notices.upcoming_tests">
       <ion-avatar slot="start">
         <ion-icon class="dull" name="book-outline"></ion-icon>
       </ion-avatar>

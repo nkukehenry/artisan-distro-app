@@ -1,0 +1,11 @@
+<ion-item>
+  <ion-icon slot="start" class="success" name="bag-check-outline"></ion-icon>
+  <ion-label>
+    <h4>{{ transaction.item }}</h4>
+     <p class="stockist">{{ transaction.stockist }}</p>
+     <p class="units">{{ transaction.units }} Units, UGX {{ transaction.price | number }}</p>
+  </ion-label>
+  <small slot="end">
+    <ion-icon  name="chevron-forward-circle-outline"></ion-icon>
+  </small>
+</ion-item>

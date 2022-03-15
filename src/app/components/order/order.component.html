@@ -1,0 +1,11 @@
+<ion-item>
+  <ion-icon slot="start" class="(order.payment_status==='unpaid')?'danger':'success'" name="bag-check-outline"></ion-icon>
+  <ion-label>
+    <h4>{{ order.date }}</h4>
+     <p class="stockist">{{ order.Ref }}</p>
+     <p class="units"> {{ order.payment_status }}, UGX {{ order.GrandTotal | number }}</p>
+  </ion-label>
+  <small slot="end">
+    <ion-icon  name="chevron-forward-circle-outline"></ion-icon>
+  </small>
+</ion-item>

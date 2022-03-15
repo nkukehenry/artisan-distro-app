@@ -7,7 +7,8 @@ import { IonicModule } from '@ionic/angular';
 import { HomePageRoutingModule } from './home-routing.module';
 import { HomePage } from './home.page';
 import { SharedModule } from 'src/app/shared/shared-module/shared.module';
-import { CategoriesComponent } from 'src/app/components/categories/categories.component';
+import { TransactionComponent } from 'src/app/components/transaction/transaction.component';
+import { OrderComponent } from 'src/app/components/order/order.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { CategoriesComponent } from 'src/app/components/categories/categories.co
   ],
   declarations: [
     HomePage,
-    CategoriesComponent,
+    OrderComponent
   ]
 })
 export class HomePageModule { }

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>{{data.title || data.name || 'LogBook Entry' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list-header *ngIf="data.title || data.name ">
+    <h3>{{data.title || data.name}}</h3>
+  </ion-list-header>
+  <p class="summary">
+    <span *ngIf="data.type">Entry Type: {{data.type || ''}}
+        <br> </span>
+    <span *ngIf="data.reference">Reference: {{data.reference || ''}}
+      <br> </span>
+      <span *ngIf="data.gender">Gender: {{data.gender || ''}}
+        <br> </span>
+        <span *ngIf="data.supervision">Supervision: {{data.supervision || ''}}
+          <br> </span>
+          <span *ngIf="data.supervisor">Supervisor: {{data.supervisor || ''}}
+            <br> </span>
+    Date: {{data.logDate || ''}}
+  </p>
+  <hr/>
+  <h6 *ngIf="data.complications"><small>Complications</small></h6>
+  <p *ngIf="data.complications" [innerHtml]="data.complications"></p>
+  <hr *ngIf="data.complications"/>
+  <h6 *ngIf="data.notes"><small>Notes</small></h6>
+  <p *ngIf="data.notes" [innerHtml]="data.notes"></p>
+
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="editLog()" fill="clear" expand="full">
+      EDIT ENTRY
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

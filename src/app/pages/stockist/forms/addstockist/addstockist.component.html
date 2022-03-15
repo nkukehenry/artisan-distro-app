@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal(false)">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="person-outline"></ion-icon>
+      Add Stockist
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+<ion-card>
+<ion-card-content>
+  <form #dataForm="ngForm">
+  <input type="hidden" *ngIf="data.id" [(ngModel)]="data.id" name="id" />
+  <p class="error" *ngIf="(name.touched || name.dirty) && !name.valid">Name is required</p>
+  <ion-item>
+    <ion-label for="name" position="floating">Stockist Name</ion-label>
+    <ion-input   type="text" #name="ngModel" name="name" [(ngModel)]="data.name" id="name" placeholder="e.g Henry Mayanja" required></ion-input>
+  </ion-item>
+  <br>
+
+  <p class="error" *ngIf="(area.touched || area.dirty) && !area.valid">Location is required</p>
+  <ion-item>
+    <ion-label for="name" position="floating">Location</ion-label>
+    <ion-input   type="text" #area="ngModel" name="area" [(ngModel)]="data.area" id="area" placeholder="e.g Kireka" required></ion-input>
+  </ion-item>
+  <br>
+  <p class="error" *ngIf="(contact.touched || contact.dirty) && !contact.valid">Contact is required</p>
+  <ion-item>
+    <ion-label for="contact" position="floating">Contact</ion-label>
+    <ion-input   type="text" #contact="ngModel" name="contact" [(ngModel)]="data.contact" id="contact" placeholder="e.g Kireka" required></ion-input>
+  </ion-item>
+  <br>
+  <p class="error" *ngIf="(notes.touched || notes.dirty) && !notes.valid">Description</p>
+  <ion-item lines="none">
+    <ion-label position="stacked">Description</ion-label>
+    <ion-textarea #notes="ngModel" name="notes" [(ngModel)]="data.notes"  rows="5"></ion-textarea>
+  </ion-item>
+  
+  <ion-button (click)="submit()" [disabled]="!dataForm.valid" mode="ios" expand="block">
+    <span *ngIf="!data.id">Save Stockist</span> 
+    <span *ngIf="data.id">Update Stockist</span> 
+  </ion-button>
+</form>
+<br>
+</ion-card-content>
+</ion-card>
+
+</ion-content>
+

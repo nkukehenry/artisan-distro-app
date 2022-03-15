@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode='ios'></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      My Profile
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="design">
+    <div class="circle circle1">
+       <img class="img-circle" src="assets/images/logo.png">
+    </div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+  </div>
+
+  <ion-card>
+    <ion-card-content>
+   <form #registerForm="ngForm">
+    <p class="error" *ngIf="(surname.touched || surname.dirty) && !surname.valid">A valid surname is required</p>
+    <ion-item>
+      <ion-label for="surname" position="floating">Surname</ion-label>
+      <ion-input minlength="3" type="text" #surname="ngModel" name="surname" [(ngModel)]="data.surname" id="surname" required [readonly]="!edit"></ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item>
+    <br>
+    <p class="error" *ngIf="(other_names.touched || other_names.dirty) && !other_names.valid">A valid other name(s) is required</p>
+    <ion-item>
+      <ion-label for="other_names" position="floating">Other names</ion-label>
+      <ion-input minlength="3" type="text" #other_names="ngModel" name="other_names" [(ngModel)]="data.other_names" id="other_names" required [readonly]="!edit"></ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item>
+    <br>
+    <p class="error" *ngIf="(username.touched || username.dirty) && !username.valid">A valid username is required</p>
+    <ion-item>
+      <ion-label for="username" position="floating">Username</ion-label>
+      <ion-input minlength="3" type="text" #username="ngModel" name="username" [(ngModel)]="data.username" id="username" required [readonly]="!edit"></ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item>
+    <br>
+    <div *ngIf="edit">
+    <ion-item>
+      <p class="error" *ngIf="(new_username.touched || new_username.dirty) && !new_username.valid">A valid new_username is required</p>
+      <ion-label for="new_username" position="floating">New username</ion-label>
+      <ion-input minlength="3" type="text" #new_username="ngModel" name="new_username" [(ngModel)]="data.new_username" id="new_username" required [readonly]="!edit"></ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item>
+    <br>
+    </div>
+    
+  <p class="error" *ngIf="(phone.touched || phone.dirty) && !phone.valid">A valid phone is required</p>
+  <ion-item>
+    <ion-label for="phone" position="floating">Phone number</ion-label>
+    <ion-input minlength="10" type="tel" #phone="ngModel" name="phone_no" [(ngModel)]="data.phone_no" id="phone" required [readonly]="!edit"></ion-input>
+    <ion-icon slot="end" name="call-outline"></ion-icon>
+  </ion-item>
+  <br>
+  <p class="error" *ngIf="(gender.touched || gender.dirty) && !gender.valid">Select gender</p>
+  <ion-item>
+    <ion-label position="floating">Gender</ion-label>
+    <ion-select  #gender="ngModel" name="gender" [(ngModel)]="data.gender"  value="" interface="popover" required >
+      <ion-select-option value="" selected [disabled]="!edit">Choose</ion-select-option>
+      <ion-select-option  value="M" [disabled]="!edit">Male</ion-select-option>
+      <ion-select-option  value="F" [disabled]="!edit">Female</ion-select-option>
+      </ion-select>
+  </ion-item>
+  <br>
+  <p class="error" *ngIf="(email.touched || email.dirty) && !email.valid">A valid email is required</p>
+  <ion-item>
+    <ion-label for="email" position="floating">Email</ion-label>
+    <ion-input minlength="6" type="email" #email="ngModel" name="email" [(ngModel)]="data.email" id="email" required [readonly]="!edit"></ion-input>
+    <ion-icon slot="end" name="mail-outline"></ion-icon>
+  </ion-item>
+  <br>
+  <ion-button *ngIf="edit" (click)="saveProfile()" [disabled]="!registerForm.valid" mode="ios" expand="block">SUBMIT</ion-button>
+</form>
+</ion-card-content>
+</ion-card>
+</ion-content>
+<ion-footer *ngIf="!edit">
+  <ion-toolbar>
+  <ion-button expand="full" fill="clear" (click)="startEdit()">
+    Edit Profile Details
+  </ion-button>
+</ion-toolbar>
+</ion-footer>

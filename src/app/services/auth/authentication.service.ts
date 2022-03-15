@@ -2,48 +2,88 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { ToastController, Platform } from '@ionic/angular';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { BaseService } from '../base.service';
+import { catchError, tap } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { DataService } from '../data.service';
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationService extends BaseService {
 
   authState = new BehaviorSubject(false);
+  authToken = null;
 
   constructor(
     private router: Router,
     private storage: Storage,
     private platform: Platform,
-    public toastController: ToastController
+    public toastController: ToastController,
+    private dataService: DataService,
+    private http: HttpClient,
   ) {
+    super();
     this.platform.ready().then(() => {
       this.ifLoggedIn();
     });
   }
 
   ifLoggedIn() {
-    this.authState.next(true);
-    //return;//simulating a success
-    this.storage.get('USER_INFO').then((response) => {
+    this.dataService.getCache('DISTRO_USER_INFO').then((response) => {
       if (response) {
+        this.user = response;
         this.authState.next(true);
       }
     });
   }
 
-  login() {
+  remoteRegister(request): Observable<any> {
+    return this.http.post(this.postRegistrationUrl(), request)
+      .pipe(
+        tap(_ => this.log('response received')),
+        catchError(this.handleError('remoteRegister', []))
+      );
+  }
+  remoteLogin(username = 'admin@example.com', password = '123456'): Observable<any> {
     const request = {
-      username: '007',
-      password: 'test'
+      grant_type: "password",
+      client_id: '2',
+      client_secret: "dXdWO1A8DG5TGdumiUVDXu2ovxCxFw3gPCsrsWhX",
+      username: username,
+      password: password
     };
-    this.storage.set('USER_INFO', request).then((response) => {
+    return this.http.post(this.getTokenUrl(), request)
+      .pipe(
+        tap(_ => this.log('response received')),
+        catchError(this.handleError('remoteLogin', []))
+      );
+  }
+
+  saveProfileDEdit(request): Observable<any> {
+    return this.http.post(this.getTokenUrl(), request)
+      .pipe(
+        tap(_ => this.log('response received')),
+        catchError(this.handleError('saveProfileDEdit', []))
+      );
+  }
+
+  getIn(userdata) {
+    this.user = userdata;
+    this.user.collegeId = userdata.default_college_id;
+    this.user.id = userdata.user_id;
+    this.user.course = userdata.default_course_id;
+
+    window.localStorage.setItem('DISTRO_USER_INFO', JSON.stringify(this.user));
+    const user = window.localStorage.getItem('DISTRO_USER_INFO');
+    this.dataService.cacheData('DISTRO_USER_INFO', this.user).then((response) => {
       this.router.navigate(['home']);
       this.authState.next(true);
     });
   }
 
   logout() {
-    this.storage.remove('USER_INFO').then(() => {
-      this.router.navigate(['home']);
+    this.dataService.clearCache('DISTRO_USER_INFO').then(() => {
+      this.router.navigate(['']);
       this.authState.next(false);
     });
   }

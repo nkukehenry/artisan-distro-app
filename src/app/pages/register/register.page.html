@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button mode='ios'></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      Registration
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="design">
+    <div class="circle circle1">
+       <img class="img-circle" src="assets/images/logo.png">
+    </div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+  </div>
+
+  <ion-card>
+    <ion-card-content>
+      <h2 class="heading">SIGN UP FOR AN ACCOUNT</h2>
+   <form #registerForm="ngForm">
+    <p class="error" *ngIf="(surname.touched || surname.dirty) && !surname.valid">A valid surname is required</p>
+    <ion-item>
+      <ion-label for="surname" position="floating">Surname</ion-label>
+      <ion-input minlength="3" type="text" #surname="ngModel" name="register" [(ngModel)]="data.surname" id="surname" required></ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item>
+    <br>
+    <p class="error" *ngIf="(other_names.touched || other_names.dirty) && !other_names.valid">A valid other name(s) is required</p>
+    <ion-item>
+      <ion-label for="other_names" position="floating">Other names</ion-label>
+      <ion-input minlength="3" type="text" #other_names="ngModel" name="register" [(ngModel)]="data.other_names" id="other_names" required></ion-input>
+      <ion-icon slot="end" name="person-outline"></ion-icon>
+    </ion-item>
+    <br>
+  <p class="error" *ngIf="(phone.touched || phone.dirty) && !phone.valid">A valid phone is required</p>
+  <ion-item>
+    <ion-label for="phone" position="floating">Phone number</ion-label>
+    <ion-input minlength="10" type="tel" #phone="ngModel" name="register" [(ngModel)]="data.phone" id="phone" required></ion-input>
+    <ion-icon slot="end" name="call-outline"></ion-icon>
+  </ion-item>
+  <br>
+  <p class="error" *ngIf="(gender.touched || gender.dirty) && !gender.valid">Select gender</p>
+  <ion-item>
+    <ion-label position="floating">Gender</ion-label>
+    <ion-select  #gender="ngModel" name="gender" [(ngModel)]="data.gender"  value="" interface="popover" required>
+      <ion-select-option value="" selected>Choose</ion-select-option>
+      <ion-select-option  value="Male">Male</ion-select-option>
+      <ion-select-option  value="Female">Female</ion-select-option>
+      </ion-select>
+  </ion-item>
+  <br>
+  <p class="error" *ngIf="(email.touched || email.dirty) && !email.valid">A valid email is required</p>
+  <ion-item>
+    <ion-label for="email" position="floating">Email</ion-label>
+    <ion-input minlength="6" type="email" #email="ngModel" name="email" [(ngModel)]="data.email" id="email" required></ion-input>
+    <ion-icon slot="end" name="mail-outline"></ion-icon>
+  </ion-item>
+  <br>
+  <p class="error" *ngIf="(password.touched || password.dirty) && !password.valid">Provide a valid password</p>
+  <ion-item>
+    <ion-label for="password" position="floating">Password</ion-label>
+    <ion-input [type]="passType" minlength="4" #password="ngModel" name="password" [(ngModel)]="data.password" id="password" required></ion-input>
+    <ion-icon style="z-index: 2;" slot="end" (click)="toggleType()" name="eye"></ion-icon>
+ </ion-item>
+  <br>
+  <ion-button (click)="doRegister()" [disabled]="!registerForm.valid" mode="ios" expand="block">SUBMIT</ion-button>
+</form>
+</ion-card-content>
+</ion-card>
+
+
+</ion-content>

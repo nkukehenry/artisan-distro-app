@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal(false)">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      <ion-icon name="cube-outline"></ion-icon>
+      New Stockist Order
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+  <form #dataForm="ngForm">
+    <input type="hidden" *ngIf="data.id" [(ngModel)]="data.id" name="id" />
+    <ion-item>
+      <ion-icon class="scan" slot="start" name="qr-code-outline" ></ion-icon>
+      <ion-label position="floating"><ion-icon  name="person-outline"></ion-icon> Stockist</ion-label>
+      <ion-select #stockist="ngModel"  name="stockist" [(ngModel)]="data.stockist " interface="popover" required>
+        <ion-select-option value="" selected>Choose</ion-select-option>
+        <ion-select-option *ngFor="let item of stockists" value="{{ item.name }}">{{ item.name }}</ion-select-option>
+       </ion-select>
+    </ion-item>
+  <ion-row *ngIf="stockist.valid">
+  <ion-col size='1'>
+    <ion-icon class="scan item-icon"  name="qr-code-outline" ></ion-icon>
+  </ion-col>
+  <ion-col size="6">
+  <ion-item class="item-row">
+    <ion-label position="floating">Product</ion-label>
+    <ion-select  name="name" [(ngModel)]="newrow.name"  value="" interface="popover">
+      <ion-select-option value="" selected>Choose</ion-select-option>
+      <ion-select-option *ngFor="let item of products" value="{{ item.name }}">{{ item.name }}</ion-select-option>
+     </ion-select>
+  </ion-item>
+  </ion-col> 
+  <ion-col size="4">
+    <ion-item>
+      <ion-label for="date" position="floating">Qnty</ion-label>
+      <ion-input min="1"  type="number" #qnty="ngModel" name="qnty" [(ngModel)]="newrow.qnty" id="qnty" placeholder="e.g 1" ></ion-input>
+    </ion-item>
+  </ion-col >
+  <ion-col class="add-button" size="1">
+    <ion-icon class="item-icon" name="add-circle-outline" (click)="addRow()"></ion-icon>
+  </ion-col>
+</ion-row>
+<br>
+<div class="rows" *ngIf="data.products">
+  <h5><ion-icon name="ticket-outline"></ion-icon> {{ data?.products.length || 0 }} Item<span *ngIf="data?.products.length!==1">s</span> added to Order </h5>
+<ion-item *ngFor="let row of data.products; let i=index">
+  <ion-label>
+      <h5>{{ row.name }}</h5>
+      <p class="info">Qnty: {{ row.qnty }}</p>
+  </ion-label>
+  <span slot="end" class="danger" >
+    <ion-icon name="close-circle-outline" (click)="removeRow(i)"></ion-icon>
+  </span>
+</ion-item>
+</div>
+
+<!-- <p class="error" *ngIf="(notes.touched || notes.dirty) && !notes.valid">Coments/Description</p>
+<ion-item lines="none">
+  <ion-label position="stacked">Comments</ion-label>
+  <ion-textarea #notes="ngModel" name="notes" [(ngModel)]="data.notes" autoGrow="true" rows="5"   required></ion-textarea>
+</ion-item> -->
+
+</form>
+<br>
+</ion-card-content>
+</ion-card>
+
+</ion-content>
+<ion-footer>
+  
+<ion-toolbar color="primary">
+  <ion-button (click)="submit()" [disabled]="!data.products" mode="ios" expand="full" fill="clear">
+  <span *ngIf="!data.id"><ion-icon name="ticket-outline"></ion-icon> Process Order</span> </ion-button>
+</ion-toolbar>
+</ion-footer>

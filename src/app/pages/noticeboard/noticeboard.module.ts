@@ -18,7 +18,7 @@ import { NoticeboardService } from 'src/app/services/noticeboard/noticeboard.ser
     SharedModule
   ],
   declarations: [
-    NoticeBoardPage
+    NoticeBoardPage,
   ],
   providers: [
     NoticeboardService

@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <app-menu-button></app-menu-button>
+    </ion-buttons>
+     <ion-title>
+      Inventory
+     </ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button mode='ios'></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+
+  <div class="categories">
+
+    <div class="category" *ngFor="let category of categories" (click)="showFormModal(category.component)" >
+        <div class="icon">
+            <img [src]="category.icon">
+        </div>
+        <div class="text">
+            {{ category.name }}
+        </div>
+    </div>
+     
+</div>
+
+<!-- <div class="loading" *ngIf="products.length<1">
+  <p>Loading...</p>
+  <ion-spinner name="dots"></ion-spinner>
+</div> -->
+
+<p class="no-data" *ngIf="products.length<1">
+  No products data available
+</p>
+<div class="inventory">
+<ion-list *ngIf="products.length>0">
+  <ion-list-header>
+    <h4>My Stock Levels</h4>
+  </ion-list-header>
+  <app-product (click)="showItemModal(prod)" *ngFor="let prod of products" [product]="prod"></app-product>
+
+</ion-list>
+</div>
+</ion-content>

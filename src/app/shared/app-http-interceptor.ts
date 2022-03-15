@@ -10,104 +10,57 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
+import { UiService } from '../services/ui.service';
+import { AuthenticationService } from '../services/auth/authentication.service';
 
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
   loaderToShow: any;
-  constructor(
-    public loadingController: LoadingController,
-    public alertController: AlertController
-  ) { }
-
+  constructor(public uiService: UiService, private authService: AuthenticationService) { }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    const token = 'api-token';
-
-    console.log(request);
 
     //Authentication by setting header with token value
-    if (token) {
+    if (this.authService.authToken) {
       request = request.clone({
         setHeaders: {
-          'Authorization': token
+          Authorization: `Bearer ${this.authService.authToken}`
         }
       });
     }
 
     if (!request.headers.has('Content-Type')) {
       request = request.clone({
-        setHeaders: {
-          'content-type': 'application/json'
-        }
+        setHeaders: { 'content-type': 'application/json' }
       });
     }
-
     request = request.clone({
       headers: request.headers.set('Accept', 'application/json')
     });
 
-    this.showLoader();
+    this.log(request);
+
     return next.handle(request).pipe(
       map((event: HttpEvent<any>) => {
+        // this.hideLoader();
         if (event instanceof HttpResponse) {
-          console.log('event--->>>', event);
-          if (!event.body.success) {
-            this.showAlert('Request Failed');
+          this.log(event);
+          if (event.status !== 200) {
+            this.uiService.showAlert(`An Error has occurred <br><b></b>${event.body?.message}</b>`);
           }
         }
-        this.hideLoader();
         return event;
       }),
       catchError((error: HttpErrorResponse) => {
-        console.error(error);
-        this.hideLoader();
+        this.log(error);
+        //this.hideLoader();
         return throwError(error);
       }));
   }
 
-  showLoader() {
-    this.loaderToShow = this.loadingController.create({
-      message: 'Please wait...'
-    }).then((res) => {
-      res.present();
-      res.onDidDismiss().then((dis) => {
-        console.log('Loading dismissed!');
-      });
-    });
+  log(message) {
+    console.log(message);
   }
 
-  hideLoader() {
-    try {
-      this.loadingController.getTop().then(v => v ? this.loadingController.dismiss() : null);
-    } catch (error) {
-      //
-    }
-  }
-
-  async showAlert(message) {
-
-    const alert = await this.alertController.create({
-      mode: 'ios',
-      message,
-      header: 'Failure',
-      buttons: [
-        // {
-        //   text: 'Cancel',
-        //   role: 'cancel',
-        //   cssClass: 'secondary',
-        //   handler: () => {
-        //     console.log('Confirm Cancel');
-        //   }
-        // }, 
-        {
-          text: 'OK',
-          handler: () => {
-            console.log('Close Ok');
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
 }

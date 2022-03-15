@@ -13,6 +13,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AuthenticationService } from './services/auth/authentication.service';
 import { AuthguardService } from './services/auth/authguard.service';
+import { Toast } from '@ionic-native/toast/ngx';
 import { Storage } from '@ionic/storage';
 
 @NgModule({
@@ -34,6 +35,7 @@ import { Storage } from '@ionic/storage';
     AuthenticationService,
     AuthguardService,
     Storage,
+    Toast
   ],
   bootstrap: [AppComponent],
 })

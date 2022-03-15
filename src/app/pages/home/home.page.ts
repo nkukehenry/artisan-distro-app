@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/auth/authentication.service';
+import { DataService } from 'src/app/services/data.service';
+import { TransactService } from 'src/app/services/transact/transact.service';
+import { UiService } from 'src/app/services/ui.service';
 
 @Component({
   selector: 'app-home',
@@ -9,38 +13,55 @@ import { MenuController, NavController, Platform, ToastController } from '@ionic
 })
 export class HomePage implements OnInit {
 
-  categories = [
-    { name: 'Courses', icon: 'assets/icon/course.png', link: 'courses' },
-    { name: 'Knowledge Hub', icon: 'assets/icon/khub.png', link: 'knowledgehub' },
-    { name: 'Notice Board', icon: 'assets/icon/notice.png', link: 'noticeboard' },
-    { name: 'E-Portifolio', icon: 'assets/icon/portfolio.png', link: 'courses' },
-    { name: 'Forums', icon: 'assets/icon/forum.png', link: 'courses' },
-    { name: 'My Profile', icon: 'assets/icon/profile.png', link: 'courses' },
-  ];
 
   exitcounter = 0;
-
+  user: any;
+  orders: any = [];
+  widgets = [
+    { name: 'Inventory', icon: 'bag-add-outline', link: 'inventory' },
+    { name: 'Stockists', icon: 'storefront-outline', link: 'stockists' },
+    { name: 'Reports', icon: 'bar-chart-outline', link: '' }
+  ];
   constructor(
     private menu: MenuController,
     private router: Router,
     private platform: Platform,
     private toastCtrl: ToastController,
     private navCtrl: NavController,
+    private authService: AuthenticationService,
+    private dataService: DataService,
+    private tranService: TransactService,
+    private uiService: UiService
   ) { }
 
   ngOnInit() {
+    this.menu.enable(true);
+    this.getTransactions();
     this.handleBack();
+    this.user = this.authService.user;
   }
 
   toggleMenu() {
     this.menu.toggle();
   }
 
+  getTransactions() {
+    this.uiService.showLoader();
+    this.tranService.getTransactions(10).subscribe(response => {
+      this.uiService.hideLoader();
+      this.dataService.log(response);
+      this.orders = response.sales;
+    }, error => {
+      this.uiService.hideLoader();
+      this.dataService.log(error);
+    });
+  }
+
   handleBack() {
     this.platform.backButton.subscribeWithPriority(10, () => {
-      console.log('Handler was called! on ' + this.router.url);
+      this.dataService.log('Handler was called! on ' + this.router.url);
 
-      if (this.router.url === '/courses/home' || this.router.url === '/login') {
+      if (this.router.url === '/home' || this.router.url === '/login') {
         if (this.exitcounter < 1
         ) {
           this.exitcounter++;
@@ -65,6 +86,14 @@ export class HomePage implements OnInit {
     setTimeout(() => {
       this.exitcounter = 0;
     }, 5000);
+  }
+
+  goTo(link) {
+    this.router.navigate([link]);
+  }
+
+  log(msg, key = '') {
+    console.log(key, msg);
   }
 
 }

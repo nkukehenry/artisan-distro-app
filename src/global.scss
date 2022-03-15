@@ -51,6 +51,23 @@ ion-split-pane{
     overflow-y:auto!important;
     background-color: #f0efef!important;
 }
+ion-content{
+    font-size: 12pt;
+}
+
+.loading{
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .no-data{
+    text-align: center; 
+    color:grey;
+     width: 100%;
+     padding-top: 20%;
+  }
+
 //Courses css
 .course-heading{
     padding: 10px;
@@ -61,9 +78,12 @@ ion-split-pane{
 .success{
     color:green
 }
+.white{
+    color:white
+}
 
 .info{
-    color:rgb(20, 142, 190)
+    color:rgb(20, 34, 92)
 }
 
 .warning{
@@ -71,7 +91,7 @@ ion-split-pane{
 }
 
 .dull{
-    color:purple;
+    color:rgb(78, 5, 78);
 }
 
 .btn-outline{
@@ -83,4 +103,36 @@ ion-split-pane{
     border:1px solid var(--ion-color-primary);
     text-decoration: none;
     margin: 10px;
+}
+
+.error{
+    width: 100%;
+    padding: 5px;
+    color: var( --ion-color-danger);
+    font-size: 10px;
+}
+.small-pad{
+    padding:5px
+}
+.half-modal{
+    //top:30%;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.status-modal{
+    width: 100%;
+    background-color:rgba(0, 0, 0, 0.3) !important;
+    --background: transparent !important;
+
+    .modal-wrapper {
+      background-color:rgba(0, 0, 0, 0.3) !important;
+      --background: transparent !important;
+    }
+}
+.danger{
+    color: maroon;
+}
+.text-bold{
+    font-weight: bold;
 }

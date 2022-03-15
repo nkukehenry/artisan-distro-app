@@ -1,48 +1,61 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-button (click)="toggleMenu()">
         <ion-icon name="menu"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>
-      SOMESA
+    <ion-title class="title">
+      <span>Artisan</span>
+        Distro
     </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
 
-
-  <app-categories></app-categories>
-
   <div class="greeting">
     <ion-row>
-      <ion-col size="12">
-        Hello Henry Nkuke
+      
+      <ion-col size="4" class="dist">
+        <h5><small>ID Number: </small><br> #0045657</h5>
+        <ion-img src="assets/images/dist.png"></ion-img>
+      </ion-col>
+      <ion-col size="8">
+        Hello {{ user.name }}
         <p>
           <ion-icon name="information-circle-outline"></ion-icon>
-          <small>If you every face any challenges with using the, please 
+          <small>If you ever face any challenges  using  the app, please 
             contact us ASAP, it's the reason we are here. We want the best for you!
           </small>
         </p>
       </ion-col>
-      <ion-col>
-
-      </ion-col>
     </ion-row>
   </div>
-  
-  <div class="categories">
 
-    <div class="category" *ngFor="let category of categories" [routerLink]="['/'+category.link]" 
-    routerLinkActive="router-link-active"  >
-        <div class="icon">
-            <img [src]="category.icon">
-        </div>
-        <div class="text">
-            {{ category.name }}
-        </div>
-    </div>
-     
+  <div class="widgets">
+    <ion-card class="widget" *ngFor="let widget of widgets" (click)="goTo(widget.link)" >
+      <ion-icon [name]=" widget.icon"></ion-icon>
+      <span>{{ widget.name }}</span>
+    </ion-card>
+  </div>
+
+  <div class="transactions">
+  <ion-list  lines="full">
+     <ion-list-header>Recent Orders</ion-list-header>
+     <app-order *ngFor="let order of orders" [order]="order"></app-order>
+  </ion-list>
 </div>
+
+<ion-fab horizontal="end" vertical="bottom" slot="fixed">
+  <ion-fab-button color="secondary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button color="light" *ngFor="let widget of widgets" (click)="goTo(widget.link)" >
+      <ion-icon [name]="widget.icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
 </ion-content>
+

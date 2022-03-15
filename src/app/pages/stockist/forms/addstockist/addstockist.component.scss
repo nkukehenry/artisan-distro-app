@@ -1,0 +1,20 @@
+.add-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15pt;
+    color:var(--ion-color-primary)
+}
+.rows{
+   // max-height: 80vh;
+   //overflow-y: auto;
+}
+ion-button{
+    color:white;
+}
+.item-row::before{
+    content: '';
+    background-color: red;
+    width: 30px;
+    height: 30px;
+}

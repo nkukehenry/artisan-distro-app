@@ -1,0 +1,74 @@
+ion-content{
+    --background: var(--ion-color-light);
+
+    h4{
+      color: gray;
+      font-weight: bold;
+      font-size: 12pt;
+    }
+
+.categories{
+  display: flex;
+  margin: 1%;
+  margin-top: 0.7%;
+  width: 96%;
+  flex-direction: row;
+  padding: 0.5%;
+  padding-top: 1.7%;
+  align-items: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-basis: auto;
+  .category{
+    display: flex;
+    flex-direction: column;
+    margin: 0,auto;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    /*box-shadow: 1px 1px 1px 1px rgba(128, 128, 128, 0.377);*/
+    background-color: white;
+    padding: 0.4%;
+    width: 45.333%;
+    border-radius: 6px;
+    margin: 0.8%;
+    .icon{
+       padding-top: 18%;
+       display: flex;
+       border-radius: 10px;
+       font-size: 22pt;
+       align-items: center;
+       justify-content: center;
+       img{
+         width: 40px;
+       }
+    }
+    .text{
+        padding:0.1rem ;
+        padding-top: 0.7rem;
+        padding-bottom: 1rem;
+        color: var(--color-dark)!important;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 10pt;
+    }
+  }
+  .borders-all{
+    border:1px solid #eee;
+  }
+}
+
+.stockist{
+
+  padding: 20px;
+  padding-top: 10px;
+  border-radius: 10px;
+  background-color: white;
+  margin: 5px;
+  padding-bottom: 50px;
+
+}
+   
+}
